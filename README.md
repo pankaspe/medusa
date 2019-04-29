@@ -30,9 +30,8 @@ Template: blog
  * Date: required
  * Template: required (`blog` for photo post or `single` for normal page, like about)
 
- 
 
-## Config
+## Config example file
 Change the `config.yml` file inside Pico's `config/` folder, may look like:
 ```
 ##

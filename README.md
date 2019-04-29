@@ -1,6 +1,6 @@
 # Medusa
 Medusa is a portfolio theme for ![Pico CMS](http://picocms.org/) built with ![Boba](https://www.buildwithboba.com/docs/index.html) css framework. 
-
+![Medusa](https://raw.githubusercontent.com/pankaspe/medusa/master/snap/Screenshot_2019-04-29%20Medusa.jpg)
 
 ## Features
 
@@ -11,11 +11,29 @@ Medusa is a portfolio theme for ![Pico CMS](http://picocms.org/) built with ![Bo
  
  
 ## How to
-Put 
+Put your article content in `content/blog/` Pico's directory.
+The folder must be named exactly like the .md file, like `my-first-post/` folder and `my-first-post.md`.
+Inside `featured/` folder, put single image for each post and call it on `post.md` file header, like:
+```
+---
+Title: Wings of life
+Image: img1.jpg
+Author: Andrea B
+Date: 2019-04-25
+Robots: noindex,nofollow
+Template: blog
+---
+```
+ * Title: required
+ * Image: required (featured image name)
+ * Author: required
+ * Date: required
+ * Template: required (blog for photo post or single for normal page, like about)
+
  
 
 ## Config
-Change the `config.yml` file inside pico's `config/` folder, may look like:
+Change the `config.yml` file inside Pico's `config/` folder, may look like:
 ```
 ##
 # Basic

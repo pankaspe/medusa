@@ -1,6 +1,6 @@
 # Medusa
-Medusa is a photoblog theme for ![Pico CMS](http://picocms.org/) built with ![Boba](https://www.buildwithboba.com/docs/index.html) css framework. 
-![Medusa](https://raw.githubusercontent.com/pankaspe/medusa/master/snap/Screenshot_2019-04-29%20Medusa.jpg)
+Medusa is a photoblog theme for [Pico CMS](http://picocms.org/) built with ![Boba](https://www.buildwithboba.com/docs/index.html) css framework. 
+[Medusa](https://raw.githubusercontent.com/pankaspe/medusa/master/snap/Screenshot_2019-04-29%20Medusa.jpg)
 
 ## Features
 

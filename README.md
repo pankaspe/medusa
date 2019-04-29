@@ -31,6 +31,8 @@ Template: blog
  * Date: required
  * Template: required (`blog` for photo post or `single` for normal page, like about)
 
+For more info, read the files inside `config/` theme folder, and copy content to `content/` 's Pico folder
+
 
 ## Config example file
 Change the `config.yml` file inside Pico's `config/` folder, may look like:

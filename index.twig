@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site_title }}</title>
+    
+    {% if config.description %}
+        <meta name="description" content="{{ config.description }}" />
+    {% endif %}
+    
+    {% if config.robots %}
+        <meta name="robots" content="{{ config.robots }}" />
+    {% endif %}
+    
+    {% if config.keywords %}
+        <meta name="keywords" content="{{ config.keywords }}" />
+    {% endif %}
+    
+    {% if config.author %}
+        <meta name="author" content="{{ config.author }}" />
+    {% endif %}
+    
+    {% if current_page %}
+        <link rel="canonical" href="{{ current_page.url }}" />
+    {% endif %}
+    
+    <link rel="stylesheet" href="https://unpkg.com/boba@1/dist/boba-extended.min.css">
+    
+    <!-- Import your Custom Stylesheet -->
+    <link rel="stylesheet" href="{{ theme_url }}/css/main.css">
+    
+    <style>
+        div#paginate {
+            display:none;
+        }
+    </style>
+    
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="{{ theme_url }}/images/{{ config.favicon }}">
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    <script>  
+        $(function () {
+            $("div#paginate").slice(0, {{ config.theme_config.pagination_number }}).show();
+            $("#loadMore").on('click', function (e) {
+                e.preventDefault();
+                $("div:hidden").slice(0, 2).slideDown();
+                if ($("div:hidden").length == 0) {
+                    $("#load").fadeOut('slow');
+                }
+                $('html,body').animate({
+                    scrollTop: $(this).offset().top
+                }, 500);
+            });
+        });
+    </script>
+    
+</head>
+<body>
+
+
+<!-- Declare the sidebar layout-->
+<div class="sidebar-layout">
+    <!-- The top navbar only appears on smaller viewports -->
+    <div class="sb-top-navbar sticky bg-white">
+        <!-- The hamburger menu that toggles the sidebar on smaller viewports -->
+        <a class="sb-side-navbar-toggle {% if config.theme_config.link_color %} bg-{{ config.theme_config.link_color }}{% endif %}" href="#boba-sidebar">
+            <span class="sb-menu-icon"></span>
+        </a>
+    </div>
+
+    <!-- The sidebar component itself -->
+    <div class="sb-side-navbar bg-white" id="boba-sidebar">
+        <div class="sb-side-sticky-region bg-white">
+            <!-- Content in this section will stay fixed to the top of the sidebar --> 
+
+            <!-- For example, add your logo here --> 
+            <a class="{% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}" href="{{ "index"|link }}">{{ site_title }}</a>
+            
+            {% if config.description %}
+                <h6 class="subheader">{{ config.description }}</h6>
+            {% endif %}
+        </div>
+
+        <div class="sb-side-scroll-region">
+            <!-- Content in this section will be scrollable when the sidebar gets long enough --> 
+
+            <!-- A basic menu using accordions --> 
+            <div class="accordion-menu">
+                <label class="accordion-header" for="overview">
+                    Menu
+                </label>
+                <div class="accordion-body">
+                
+                    <ul class="no-bullets accordion-submenu">
+                        <li>
+                            <a class="{% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}" href="{{ base_url }}">
+                                Home
+                            </a>
+                        </li>
+                        
+                        {% for page in pages %}
+                            {% if page.meta.template starts with "single" and not page.hidden %}
+                            <li>
+                                <a class="{% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}" href="{{ page.url }}"> 
+                                    {{ page.meta.title }} 
+                                </a>
+                            </li>
+                            {% endif %}
+                        
+                        {% endfor %}
+                    </ul>
+
+                    <hr class="light">
+                    
+                    <label class="accordion-header" for="overview">
+                        Archive
+                    </label>                    
+                    <ul class="no-bullets accordion-submenu">
+                        {% for page in pages|sort_by("time")|reverse %}
+                            {% if page.id starts with "blog/" and not page.hidden %}
+                                <li>
+                                    <a class="{% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}" href="{{ page.url }}">
+                                        {% if config.theme_config.name_link_menu %}
+                                            {{ page.meta.title }}
+                                        {% else %}
+                                            {{ page.meta.date_formatted }}                                        
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The overlay over the main content that is displayed when the sidebar is visible on smaller viewports -->        
+    <a class="sb-main-overlay" href="#close"></a>
+
+    <!-- The main content container of your page, adjusted to accommodate the sidebar -->
+    <div class="sb-main-content">
+
+        <!-- START MAIN CONTENT -->
+        <div class="section">
+            <div class="container">
+            
+                {% if config.intro %}
+                    <div class="row">
+                        <div class="col md-12">
+                            <h4 class="header">{{ config.intro }}</h4>
+                        <div>
+                    </div>
+                    <br />
+                {% endif %}
+            
+            
+                <div class="row">                        
+                    {% for page in pages|sort_by("time")|reverse %}
+                        {% if page.id starts with "blog/" and not page.hidden %}
+                            <div id="paginate" class="col md-8">
+                                <div class="card shadow-hover-2 border-light">
+                                    <div class="card-header">
+                                        <div class="card-header-title">
+                                            <a class="{% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}" href="{{ page.url }}">{{ page.meta.title }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-image">
+                                        <img src="{{ base_url }}/content/blog/featured/{{ page.meta.image }}" alt="Image">
+                                    </div>
+                                    <div class="card-content">
+                                        <p>{{ page.meta.date_formatted }}</p>
+                                    </div>
+                                </div>
+                            </div>                    
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <!-- start pagination -->
+                {% set count = 0 %}
+                {% for page in pages %}
+                    {% if page.id starts with "blog/" and not page.hidden %}
+                        {% set count = count + 1 %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if count > config.theme_config.pagination_number %}
+                    <div class="row">
+                        <div class="col md-8 text-center">                        
+                            <a class="button {% if config.theme_config.link_color %} {{ config.theme_config.link_color }}{% endif %} inverted" href="#" id="loadMore"> Load more pics!</a>
+                        </div>
+                    </div>
+                {% endif %}
+                <!-- end pagination -->
+                
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+        
+        <!-- FOOTER -->
+        {% if config.footer_text %}
+            <div class="section">
+                <div class="container">
+                    <p class="thin">{{ config.footer_text }}</p>
+                </div>
+            </div>
+        {% endif %}
+        <!-- END FOOTER -->
+        
+    </div>
+</div>
+</body>
+</html>
+

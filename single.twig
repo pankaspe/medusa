@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+    
+    {% if meta.description %}
+        <meta name="description" content="{{ meta.description|striptags }}" />
+    {% endif %}
+    
+    {% if meta.robots %}
+        <meta name="robots" content="{{ meta.robots }}" />
+    {% endif %}
+
+    {% if current_page %}
+        <link rel="canonical" href="{{ current_page.url }}" />
+    {% endif %}
+    
+    <link rel="stylesheet" href="https://unpkg.com/boba@1/dist/boba-extended.min.css">
+    
+    <!-- Import your Custom Stylesheet -->
+    <link rel="stylesheet" href="{{ theme_url }}/css/main.css">
+    
+    <style>
+        a {
+            color: #252627;
+        }
+    </style>
+    
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="{{ theme_url }}/images/{{ config.favicon }}">
+</head>
+<body>
+
+
+<!-- Declare the sidebar layout-->
+<div class="sidebar-layout">
+    <!-- The top navbar only appears on smaller viewports -->
+    <div class="sb-top-navbar sticky bg-white">
+        <!-- The hamburger menu that toggles the sidebar on smaller viewports -->
+        <a class="sb-side-navbar-toggle {% if config.theme_config.link_color %} bg-{{ config.theme_config.link_color }}{% endif %}" href="#boba-sidebar">
+            <span class="sb-menu-icon"></span>
+        </a>
+    </div>
+
+    <!-- The sidebar component itself -->
+    <div class="sb-side-navbar bg-white" id="boba-sidebar">
+        <div class="sb-side-sticky-region bg-white">
+            <!-- Content in this section will stay fixed to the top of the sidebar --> 
+
+            <!-- For example, add your logo here --> 
+            <a class="{% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}" href="{{ "index"|link }}">{{ site_title }}</a>
+            
+            {% if config.description %}
+                <h6 class="subheader">{{ config.description }}</h6>
+            {% endif %}
+        </div>
+
+        <div class="sb-side-scroll-region">
+            <!-- Content in this section will be scrollable when the sidebar gets long enough --> 
+
+            <!-- A basic menu using accordions --> 
+            <div class="accordion-menu">
+                <label class="accordion-header" for="overview">
+                    Menu
+                </label>
+                <div class="accordion-body">
+                
+                    <ul class="no-bullets accordion-submenu">
+                        <li>
+                            <a class="{% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}" href="{{ base_url }}">
+                                Home
+                            </a>
+                        </li>
+                        
+                        {% for page in pages %}
+                            {% if page.meta.template starts with "single" and not page.hidden %}
+                            <li>
+                                <a class="{% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}" href="{{ page.url }}"> 
+                                    {{ page.meta.title }} 
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                    <hr class="light">
+                    
+                    <label class="accordion-header" for="overview">
+                        Archive
+                    </label>                    
+                    <ul class="no-bullets accordion-submenu">
+                        {% for page in pages|sort_by("time")|reverse %}
+                            {% if page.id starts with "blog/" and not page.hidden %}
+                                <li>
+                                    <a class="{% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}" href="{{ page.url }}">
+                                        {% if config.theme_config.name_link_menu %}
+                                            {{ page.meta.title }}
+                                        {% else %}
+                                            {{ page.meta.date_formatted }}                                        
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The overlay over the main content that is displayed when the sidebar is visible on smaller viewports -->        
+    <a class="sb-main-overlay" href="#close"></a>
+
+    <!-- The main content container of your page, adjusted to accommodate the sidebar -->
+    <div class="sb-main-content">
+
+        <!-- START MAIN CONTENT -->
+        <div class="section">
+        
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col xs-12 md-10 lg-8">
+                        <div class="card shadow-hover-2 border-light">
+                            <div class="card-header">
+                                <div class="card-header-title {% if config.theme_config.link_color %} text-{{ config.theme_config.link_color }}{% endif %}">
+                                    {{ meta.title }}
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                {{ content }}
+                            </div>
+                        </div>
+                    </div>                    
+
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+        
+        <!-- FOOTER -->
+        {% if config.footer_text %}
+            <div class="section">
+                <div class="container">
+                    <p class="thin">{{ config.footer_text }}</p>
+                </div>
+            </div>
+        {% endif %}
+        <!-- END FOOTER -->
+        
+    </div>
+</div>
+</body>
+</html>
+

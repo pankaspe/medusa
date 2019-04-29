@@ -1,8 +1,16 @@
 # Medusa
 Medusa is a portfolio theme for ![Pico CMS](http://picocms.org/) built with ![Boba](https://www.buildwithboba.com/docs/index.html) css framework. 
 
+## Features
+
+ * 9 colors scheme
+ * jquery pagination
+ * responsive
+ * switch menu elements to title or date 
+ 
+
 ## Config
-Change the `config.yml` file inside pico's `config/` folder
+Change the `config.yml` file inside pico's `config/` folder, may look like:
 ```
 ##
 # Basic

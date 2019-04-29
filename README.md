@@ -11,8 +11,8 @@ Medusa is a portfolio theme for ![Pico CMS](http://picocms.org/) built with ![Bo
  
  
 ## How to
-Put your article content in `content/blog/` Pico's directory.
-The folder must be named exactly like the .md file, like `my-first-post/` folder and `my-first-post.md`.
+Put your article content in `content/blog/` Pico's directory.  
+The folder must be named exactly like the .md file, like `my-first-post/` folder and `my-first-post.md`.  
 Inside `featured/` folder, put single image for each post and call it on `post.md` file header, like:
 ```
 ---

@@ -28,7 +28,7 @@ Template: blog
  * Image: required (featured image name)
  * Author: required
  * Date: required
- * Template: required (blog for photo post or single for normal page, like about)
+ * Template: required (`blog` for photo post or `single` for normal page, like about)
 
  
 
